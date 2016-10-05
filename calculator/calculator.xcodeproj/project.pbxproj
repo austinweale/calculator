@@ -255,6 +255,7 @@
 				9D6662D71DA494880068A78E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
