@@ -6,18 +6,25 @@
 
 import Foundation
 
+class OperatorHelp {
+    func average(args: [String]) {
+        let total = args.count - 2
+        var commandLineSum = 0
+        for i in 1...(args.count - 2){
+            commandLineSum += Int(args[i])!
+        }
+        print("result: \(commandLineSum / total)")
+    }
+}
+
 
 if (CommandLine.arguments.count > 1){
-    var args = CommandLine.arguments
-    var operation = args[args.count - 1]
+    var arguments = CommandLine.arguments
+    var operation = arguments[arguments.count - 1]
+    let operatorHelp = OperatorHelp()
     switch operation {
         case "avg":
-            var total = args.count - 2
-            var commandLineSum = 0
-            for i in 1...(args.count - 2){
-                commandLineSum += Int(args[i])!
-            }
-            print("result: \(commandLineSum / total)")
+            operatorHelp.average(args: arguments)
         default:
             print("invalid operation")
     }
@@ -45,4 +52,5 @@ if (CommandLine.arguments.count > 1){
             print("not valid input")
     }
 }
+
 
