@@ -1,7 +1,9 @@
 //
 //  Austin Weale
-//  calculator
-//
+//  calculator for homework 2
+//  This program takes in input from the command line or command line arguments 
+//  in order to make simple calculations
+//  command line arguments extra feature
 //
 
 import Foundation
@@ -9,10 +11,10 @@ import Foundation
 
 //returns the average of the command-line arguments
 //assumes first arg is the program name and the last arg is not used
-func average(args: [String]) {
-    let total = args.count - 2
+func average(args: [String], start: Int) {
+    let total = args.count - 1 - start
     var commandLineSum = 0
-    for i in 1...(args.count - 2){
+    for i in start...(args.count - 2){
         commandLineSum += Int(args[i])!
     }
 
@@ -28,13 +30,14 @@ func factorial(num: Int) -> Int{
     }
 }
 
-
+//if they passed arguments use them
+//otherwise take in user input
 if (CommandLine.arguments.count > 1){
     var arguments = CommandLine.arguments
     var operation = arguments[arguments.count - 1]
     switch operation {
         case "avg":
-            average(args: arguments)
+            average(args: arguments, start: 1)
         case "count":
             print("result: \(arguments.count - 2)")
         case "fact":
@@ -45,25 +48,45 @@ if (CommandLine.arguments.count > 1){
 } else {
     print("Enter an expression separated by returns:")
     
-    var first = Int(readLine(strippingNewline: true)!)!
+    var firstInput = readLine(strippingNewline: true)!
     
-    var operand = readLine(strippingNewline: true)!
+    var allInput = firstInput.components(separatedBy: " ")
     
-    var second = Int(readLine(strippingNewline: true)!)!
-    
-    switch operand {
-        case "+":
-            print("result: \(first + second)")
-        case "-":
-            print("result: \(first - second)")
-        case "*":
-            print("result: \(first * second)")
-        case "/":
-            print("result: \(first / second)")
-        case "%":
-            print("result: \(first % second)")
+    //if they typed a whole expression
+    if(allInput.count > 1){
+        var arguments = allInput
+        var operation = arguments[arguments.count - 1]
+        switch operation {
+        case "avg":
+            average(args: arguments, start: 0)
+        case "count":
+            print("result: \(arguments.count - 2)")
+        case "fact":
+            print("result: \( factorial(num: Int(arguments[0])!) )")
         default:
-            print("not valid input")
+            print("invalid operation")
+        }
+    }else{
+        var first = Int(firstInput)!
+        
+        var operand = readLine(strippingNewline: true)!
+        
+        var second = Int(readLine(strippingNewline: true)!)!
+        
+        switch operand {
+            case "+":
+                print("result: \(first + second)")
+            case "-":
+                print("result: \(first - second)")
+            case "*":
+                print("result: \(first * second)")
+            case "/":
+                print("result: \(first / second)")
+            case "%":
+                print("result: \(first % second)")
+            default:
+                print("not valid input")
+        }
     }
 }
 
